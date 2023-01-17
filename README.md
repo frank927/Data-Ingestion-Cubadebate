@@ -1,2 +1,9 @@
 # Data-Ingestion-Cubadebate
 Ingesta de datos no estructurados sin API.
+
+El archivo CubadebateLinks.py tiene como función rastrear las nuevas URLs de las noticias con el objetivo de encontrar los nuevos enlaces de noticias que se van publicando, es necesario utilizar la librería requests de Python, con ella se envía una petición HTTP a la página servidor para solicitar el recurso deseado, en esta petición se encuentra la URL y el agente de usuario que es una cabecera de texto que sirve para identificar al usuario que accede a la página web. Luego se usa la librería BeautifulSoup de Python para extraer el HTML de la página solicitada, dentro del HTML se escogen las etiquetas del título de las noticias, después
+que se obtienen se itera sobre cada una de las noticias para raspar sus URLs y almacenarlas. Este proceso es ejecutado de forma iterativa sobre cada una de las seis categorías de noticias que existen en Cubadebate
+
+El segundo archivo es el de configuración de la base de datos (ConnectionSQLITE.py). Este método tiene como objetivo: Crear las tablas y columnas de la base de datos.
+
+Y un tercer archivo CubadebateComm.py que obtiene todas las URLs de las noticias que fueron almacenadas y las recorre de forma iterativa, en cada iteración se extraen los comentarios que fueron publicados en esa noticia para su posterior almacenamiento. Para acceder a las URLs que se encontraban almacenadas se ejecuta una consulta SQL y luego se utiliza la librería de Python llamada Pandas para eliminar algunos caracteres no deseados. El listado de URLs está listo para ser iterado, de cada enlace se obtienen la cantidad de páginas de comentarios a través de una función que adquiere sus datos con la librería requests. Posteriormente con BeautifulSoup se extraen los comentarios a través de una función que itera sobre cada una de las páginas de comentarios de la noticia sobre la que se está, para luego quedar almacenados en la base de datos.
